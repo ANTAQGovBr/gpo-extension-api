@@ -37,6 +37,8 @@ module.exports = {
       const mergedResults = {
         ...results,
         ...await ContratoArrendamentoController.read(results.IDContratoArrendamento),
+        ...await ContratoArrendamentoController.readCarga(results.IDContratoArrendamento),
+        // ...await PortosController.read(results)
       };
 
       res.json(mergedResults);

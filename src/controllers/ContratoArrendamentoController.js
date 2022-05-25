@@ -34,8 +34,26 @@ module.exports = {
       ).where({
         IDContratoArrendamento,
       })
-      .first();
+        .first();
+      return results;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
+  async readCarga(IDContratoArrendamento) {
+    try {
+      const results = await arrendamentoV2DB("TBClassificaoSubclassificaoCarga").select(
+        //"IDTipoAcondicionamento",
+        "IDClassificaoSubclassificaoCarga",
+        "IDClassificaoSubclassificaoCargaPai",
+        "IDGrupoMercadoria",
+        "NOGrupoMercadoria",
+      )
+      .where({
+        IDContratoArrendamento
+      })
+      .first();
       return results;
     } catch (error) {
       console.log(error);
