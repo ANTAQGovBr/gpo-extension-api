@@ -31,6 +31,7 @@ module.exports = {
         "NOFantasiaEmpresa",
         "NRCNPJInstalacao",
         "NOInstalacao",
+        "MMObjeto",
       ).where({
         IDContratoArrendamento,
       })
