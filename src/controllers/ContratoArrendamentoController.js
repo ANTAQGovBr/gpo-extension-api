@@ -1,4 +1,4 @@
-const { arrendamentoV2DB } = require("../database");
+const { arrendamentoV2DB, corporativoDB } = require("../database");
 
 module.exports = {
   async listByPorto(req, res, next) {
@@ -45,17 +45,37 @@ module.exports = {
   async readCarga(IDContratoArrendamento) {
     try {
       const results = await arrendamentoV2DB("TBClassificaoSubclassificaoCarga").select(
-        //"IDTipoAcondicionamento",
-        "IDClassificaoSubclassificaoCarga",
-        "IDClassificaoSubclassificaoCargaPai",
-        "IDGrupoMercadoria",
+        "IDNaturezaCarga",
         "NOGrupoMercadoria",
       )
-      .where({
-        IDContratoArrendamento
-      })
-      .first();
-      return results;
+        .where({
+          IDContratoArrendamento
+        })
+        .first();
+        
+        // Agregacao do atributo do Perfil de Carga 
+      const resultsCarga = {
+        ...results,
+        ...await this.readPerfilCarga(results.IDNaturezaCarga)
+      }
+      return resultsCarga; 
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async readPerfilCarga(IDTipoAcondicionamento) {
+    try {
+      const resultsPerfilCarga = await corporativoDB("TBTipoAcondicionamento").select(
+        "DSTipoAcondicionamento",
+
+      )
+        .where({
+          IDTipoAcondicionamento
+        })
+        .first();
+      return resultsPerfilCarga;
+
     } catch (error) {
       console.log(error);
     }
