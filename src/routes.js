@@ -44,7 +44,13 @@ routes.delete(
   ControleREIDIController.delete
 );
 
+// Analise REIDI
 routes.get("/api/analisereidi", AnaliseREIDIController.read);
+routes.put(
+  "/api/analisereidi/:NRProcessoPrincipal",
+  AnaliseREIDIController.update
+);
+
 routes.get(
   "/api/controlereidisemvinculo",
   ControleREIDISemVinculoController.read

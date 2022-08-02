@@ -12,6 +12,20 @@ module.exports = {
     }
   },
 
+  async getIDControleREIDI(NRProcessoPrincipal){
+    try {
+      const result = await extensaoControleDB("TBControleREIDI")
+      .select("IDControleREIDI")
+      .where( {NRProcessoPrincipal} )
+      .first()
+      
+
+      return result;
+    } catch (error) {
+      
+    }
+  },
+
   async read(req, res, next) {
     const { NRProcessoPrincipal } = req.params;
     try {
@@ -82,6 +96,7 @@ module.exports = {
         NRProtocoloMINFRA,
         NRCodigoMINFRA,
       });
+      
 
       res.status(201).json({
         IDContratoArrendamento,
@@ -138,6 +153,7 @@ module.exports = {
         DSObservacoesSituacao,
         NRProtocoloMINFRA,
         NRCodigoMINFRA,
+
       });
     } catch (error) {
       next(error);
