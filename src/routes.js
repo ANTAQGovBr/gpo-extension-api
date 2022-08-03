@@ -44,6 +44,7 @@ routes.delete(
   ControleREIDIController.delete
 );
 
+//Analise REIDI
 routes.get("/api/analisereidi", AnaliseREIDIController.read);
 routes.get(
   "/api/controlereidisemvinculo",
