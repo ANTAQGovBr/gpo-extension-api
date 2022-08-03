@@ -11,6 +11,49 @@ module.exports = {
     } catch (error) {}
   },
 
+  async create(req, res, next) {
+    try {
+      const { NRProcessoPrincipal } = req.params;
+
+      const {IDControleREIDI} = await getIDControleREIDI(NRProcessoPrincipal);
+   
+      const {
+        //IDUsuario,
+        DSTituloAnaliseREIDI,
+        DTInicioAnaliseREIDI,
+        DTFimAnaliseREIDI,
+        IDEstadoAnaliseREIDI,
+        NRAnaliseREIDIDocumentoSEI,
+        IDAnaliseREIDIDocumentoSEI
+      } = req.body;
+
+      await extensaoControleDB("TBAnaliseREIDI").insert({
+        IDControleREIDI,
+        //IDUsuario,
+        DSTituloAnaliseREIDI,
+        DTInicioAnaliseREIDI,
+        DTFimAnaliseREIDI,
+        IDEstadoAnaliseREIDI,
+        NRAnaliseREIDIDocumentoSEI,
+        IDAnaliseREIDIDocumentoSEI
+      });
+      
+
+      res.status(201).json({
+        IDControleREIDI,
+        //IDUsuario,
+        DSTituloAnaliseREIDI,
+        DTInicioAnaliseREIDI,
+        DTFimAnaliseREIDI,
+        IDEstadoAnaliseREIDI,
+        NRAnaliseREIDIDocumentoSEI,
+        IDAnaliseREIDIDocumentoSEI
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async update(req, res, next) {
     try {
       const { NRProcessoPrincipal } = req.params;
