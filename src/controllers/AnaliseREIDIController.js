@@ -53,6 +53,22 @@ module.exports = {
       next(error);
     }
   },
+  
+  async delete(req, res, next) {
+    try {
+      const { NRProcessoPrincipal } = req.params;
+
+      const IDControleREIDI = await getIDControleREIDI(NRProcessoPrincipal);
+      
+      const response = await extensaoControleDB("TBAnaliseREIDI")
+        .where( IDControleREIDI )
+        .del("*");
+
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
 
   async update(req, res, next) {
     try {

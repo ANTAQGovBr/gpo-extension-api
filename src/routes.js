@@ -46,10 +46,17 @@ routes.delete(
 
 // Analise REIDI
 routes.get("/api/analisereidi", AnaliseREIDIController.read);
-routes.post("/api/analisereidi/:NRProcessoPrincipal", AnaliseREIDIController.create);
+routes.post(
+  "/api/analisereidi/:NRProcessoPrincipal",
+  AnaliseREIDIController.create
+);
 routes.put(
   "/api/analisereidi/:NRProcessoPrincipal",
   AnaliseREIDIController.update
+);
+routes.delete(
+  "/api/analisereidi/:NRProcessoPrincipal",
+  AnaliseREIDIController.delete
 );
 
 routes.get(

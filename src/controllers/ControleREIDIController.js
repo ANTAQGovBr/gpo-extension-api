@@ -120,12 +120,13 @@ module.exports = {
       const response = await extensaoControleDB("TBControleREIDI")
         .where({ NRProcessoPrincipal })
         .del("*");
-
+      
       res.status(200).json(response);
     } catch (error) {
       next(error);
     }
   },
+
   async update(req, res, next) {
     try {
       const { NRProcessoPrincipal } = req.params;
