@@ -64,7 +64,25 @@ routes.get(
   ControleREIDISemVinculoController.read
 );
 routes.get("/api/estadoanalisereidi", EstadoAnaliseREIDIController.read);
+
+//Manifestacao ANTAQ
 routes.get("/api/manifestacaoantaq", ManifestacaoAntaqController.read);
+routes.post(
+  "/api/manifestacaoantaq/:NRProcessoPrincipal",
+  ManifestacaoAntaqController.create
+);
+routes.put(
+  "/api/manifestacaoantaq/:NRProcessoPrincipal",
+  ManifestacaoAntaqController.update
+);
+routes.delete(
+  "/api/manifestacaoantaq/:NRProcessoPrincipal",
+  ManifestacaoAntaqController.delete
+);
+
+
+
+
 routes.get(
   "/api/estadomanifestacaoantaq",
   EstadoManifestacaoAntaqController.read
