@@ -75,6 +75,7 @@ module.exports = {
       const { NRProcessoPrincipal } = req.params;
       const {
         DSTituloAnaliseREIDI,
+        IDEstadoAnaliseREIDI,
         DTInicioAnaliseREIDI,
         DTFimAnaliseREIDI,
       } = req.body;
@@ -87,12 +88,14 @@ module.exports = {
         .where( IDControleREIDI )
         .update({
           DSTituloAnaliseREIDI,
+          IDEstadoAnaliseREIDI,
           DTInicioAnaliseREIDI,
           DTFimAnaliseREIDI,
         });
 
       res.status(200).json({
         DSTituloAnaliseREIDI,
+        IDEstadoAnaliseREIDI,
         DTInicioAnaliseREIDI,
         DTFimAnaliseREIDI,
       });

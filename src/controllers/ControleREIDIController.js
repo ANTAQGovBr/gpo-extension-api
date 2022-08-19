@@ -36,9 +36,9 @@ module.exports = {
         .fullOuterJoin("TBAnaliseREIDI", {
           "TBControleREIDI.IDControleREIDI": "TBAnaliseREIDI.IDControleREIDI",
         })
-        .fullOuterJoin("TBEstadoAnaliseREIDI", {
-          "TBAnaliseREIDI.IDEstadoAnaliseREIDI": "TBEstadoAnaliseREIDI.IDEstadoAnaliseREIDI",
-        })
+          // .fullOuterJoin("TBEstadoAnaliseREIDI", {
+          //   "TBAnaliseREIDI.IDEstadoAnaliseREIDI": "TBEstadoAnaliseREIDI.IDEstadoAnaliseREIDI",
+          // })
         .fullOuterJoin("TBManifestacaoANTAQ", {
           "TBControleREIDI.IDControleREIDI": "TBManifestacaoANTAQ.IDControleREIDI",
         })
