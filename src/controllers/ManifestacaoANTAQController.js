@@ -19,7 +19,7 @@ module.exports = {
       const {
         //IDManifestacaoANTAQ,
         DTManifestacaoANTAQ,
-        //IDEstadoManifestacaoANTAQ,
+        IDEstadoManifestacaoANTAQ,
         DSTituloManifestacaoANTAQ,
         NRManifestacaoANTAQDocumentoSEI,
         IDManifestacaoANTAQDocumentoSEI,
@@ -29,7 +29,7 @@ module.exports = {
         IDControleREIDI,
         //IDManifestacaoANTAQ,
         DTManifestacaoANTAQ,
-        //IDEstadoManifestacaoANTAQ, //Radio Button
+        IDEstadoManifestacaoANTAQ, //Radio Button
         DSTituloManifestacaoANTAQ,
         NRManifestacaoANTAQDocumentoSEI,
         IDManifestacaoANTAQDocumentoSEI,
@@ -39,7 +39,7 @@ module.exports = {
         IDControleREIDI,
         //IDManifestacaoANTAQ,
         DTManifestacaoANTAQ,
-        //IDEstadoManifestacaoANTAQ, //Radio Button
+        IDEstadoManifestacaoANTAQ, //Radio Button
         DSTituloManifestacaoANTAQ,
         NRManifestacaoANTAQDocumentoSEI,
         IDManifestacaoANTAQDocumentoSEI,
@@ -71,6 +71,7 @@ module.exports = {
       const {
         DTManifestacaoANTAQ,
         DSTituloManifestacaoANTAQ,
+        IDEstadoManifestacaoANTAQ,
         NRManifestacaoANTAQDocumentoSEI,
         IDManifestacaoANTAQDocumentoSEI,
       } = req.body;
@@ -84,6 +85,7 @@ module.exports = {
         .update({
           DTManifestacaoANTAQ,
           DSTituloManifestacaoANTAQ,
+          IDEstadoManifestacaoANTAQ,
           NRManifestacaoANTAQDocumentoSEI,
           IDManifestacaoANTAQDocumentoSEI,
         });
@@ -91,6 +93,7 @@ module.exports = {
       res.status(200).json({
         DTManifestacaoANTAQ,
         DSTituloManifestacaoANTAQ,
+        IDEstadoManifestacaoANTAQ,
         NRManifestacaoANTAQDocumentoSEI,
         IDManifestacaoANTAQDocumentoSEI,
       });
