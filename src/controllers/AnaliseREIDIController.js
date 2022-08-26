@@ -82,8 +82,6 @@ module.exports = {
 
       const IDControleREIDI = await getIDControleREIDI(NRProcessoPrincipal);
 
-      console.log(IDControleREIDI);
-
       await extensaoControleDB("TBAnaliseREIDI")
         .where( IDControleREIDI )
         .update({

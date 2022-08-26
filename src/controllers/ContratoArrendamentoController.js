@@ -18,6 +18,23 @@ module.exports = {
       next(error);
     }
   },
+
+  async getCDTrigrama(IDContratoArrendamento) {
+    try {
+      const result = await arrendamentoV2DB
+        .select("CDTrigrama")
+        .from("TBContratoArrendamento")
+        .where({
+          IDContratoArrendamento
+        })
+        .first();
+
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async read(IDContratoArrendamento) {
     try {
       const results = await arrendamentoV2DB("TBContratoArrendamento").select(

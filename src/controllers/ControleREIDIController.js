@@ -1,5 +1,6 @@
 const ContratoArrendamentoController = require("./ContratoArrendamentoController");
 const { extensaoControleDB, arrendamentoV2DB } = require("../database");
+const PortosController = require("./PortosController");
 
 module.exports = {
   async index(req, res, next) {
@@ -52,6 +53,7 @@ module.exports = {
         ...results,
         ...await ContratoArrendamentoController.read(results.IDContratoArrendamento),
         ...await ContratoArrendamentoController.readCarga(results.IDContratoArrendamento),
+        ...await PortosController.listByContrato(results.IDContratoArrendamento)
       };
       
 
@@ -131,6 +133,7 @@ module.exports = {
     try {
       const { NRProcessoPrincipal } = req.params;
       const {
+        IDContratoArrendamento,
         DTProtocoloPedido,
         VLInvestimentoProposto,
         DSObservacoesSituacao,
@@ -141,6 +144,7 @@ module.exports = {
       await extensaoControleDB("TBControleREIDI")
         .where({ NRProcessoPrincipal })
         .update({
+          IDContratoArrendamento,
           DTProtocoloPedido,
           VLInvestimentoProposto,
           DSObservacoesSituacao,
@@ -149,6 +153,7 @@ module.exports = {
         });
 
       res.status(200).json({
+        IDContratoArrendamento,
         DTProtocoloPedido,
         VLInvestimentoProposto,
         DSObservacoesSituacao,
