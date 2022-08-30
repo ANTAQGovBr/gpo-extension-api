@@ -9,6 +9,7 @@ const ManifestacaoAntaqController = require("./controllers/ManifestacaoANTAQCont
 const EstadoManifestacaoAntaqController = require("./controllers/EstadoManifestacaoANTAQController");
 const { route } = require("express/lib/application");
 const ContratoArrendamentoController = require("./controllers/ContratoArrendamentoController");
+const UsuarioController = require("./controllers/UsuarioController");
 
 routes.get("/", (req, res) => {
   try {
@@ -80,8 +81,8 @@ routes.delete(
   ManifestacaoAntaqController.delete
 );
 
-
-
+//Usuario 
+routes.get("/api/usuario", UsuarioController.read);
 
 routes.get(
   "/api/estadomanifestacaoantaq",

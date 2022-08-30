@@ -18,7 +18,7 @@ module.exports = {
       const {IDControleREIDI} = await getIDControleREIDI(NRProcessoPrincipal);
    
       const {
-        //IDUsuario,
+        IDUsuario,
         DSTituloAnaliseREIDI,
         DTInicioAnaliseREIDI,
         DTFimAnaliseREIDI,
@@ -29,7 +29,7 @@ module.exports = {
 
       await extensaoControleDB("TBAnaliseREIDI").insert({
         IDControleREIDI,
-        //IDUsuario,
+        IDUsuario,
         DSTituloAnaliseREIDI,
         DTInicioAnaliseREIDI,
         DTFimAnaliseREIDI,
@@ -41,7 +41,7 @@ module.exports = {
 
       res.status(201).json({
         IDControleREIDI,
-        //IDUsuario,
+        IDUsuario,
         DSTituloAnaliseREIDI,
         DTInicioAnaliseREIDI,
         DTFimAnaliseREIDI,
@@ -74,6 +74,7 @@ module.exports = {
     try {
       const { NRProcessoPrincipal } = req.params;
       const {
+        IDUsuario,
         DSTituloAnaliseREIDI,
         IDEstadoAnaliseREIDI,
         DTInicioAnaliseREIDI,
@@ -85,6 +86,7 @@ module.exports = {
       await extensaoControleDB("TBAnaliseREIDI")
         .where( IDControleREIDI )
         .update({
+          IDUsuario,
           DSTituloAnaliseREIDI,
           IDEstadoAnaliseREIDI,
           DTInicioAnaliseREIDI,
@@ -92,6 +94,7 @@ module.exports = {
         });
 
       res.status(200).json({
+        IDUsuario,
         DSTituloAnaliseREIDI,
         IDEstadoAnaliseREIDI,
         DTInicioAnaliseREIDI,

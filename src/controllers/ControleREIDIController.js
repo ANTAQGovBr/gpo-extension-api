@@ -1,6 +1,7 @@
 const ContratoArrendamentoController = require("./ContratoArrendamentoController");
 const { extensaoControleDB, arrendamentoV2DB } = require("../database");
 const PortosController = require("./PortosController");
+const UsuarioController = require("./UsuarioController");
 
 module.exports = {
   async index(req, res, next) {
@@ -53,7 +54,8 @@ module.exports = {
         ...results,
         ...await ContratoArrendamentoController.read(results.IDContratoArrendamento),
         ...await ContratoArrendamentoController.readCarga(results.IDContratoArrendamento),
-        ...await PortosController.listByContrato(results.IDContratoArrendamento)
+        ...await PortosController.listByContrato(results.IDContratoArrendamento),
+        ...await UsuarioController.readUsuario(results.IDUsuario),
       };
       
 
