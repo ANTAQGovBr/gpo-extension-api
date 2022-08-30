@@ -1,5 +1,7 @@
 const ContratoArrendamentoController = require("./ContratoArrendamentoController");
 const { extensaoControleDB, arrendamentoV2DB } = require("../database");
+const PortosController = require("./PortosController");
+const UsuarioController = require("./UsuarioController");
 
 module.exports = {
   async index(req, res, next) {
@@ -9,6 +11,20 @@ module.exports = {
       res.json(results);
     } catch (error) {
       next(error);
+    }
+  },
+
+  async getIDControleREIDI(NRProcessoPrincipal){
+    try {
+      const result = await extensaoControleDB("TBControleREIDI")
+      .select("IDControleREIDI")
+      .where( {NRProcessoPrincipal} )
+      .first()
+      
+
+      return result;
+    } catch (error) {
+      
     }
   },
 
@@ -22,15 +38,15 @@ module.exports = {
         .fullOuterJoin("TBAnaliseREIDI", {
           "TBControleREIDI.IDControleREIDI": "TBAnaliseREIDI.IDControleREIDI",
         })
-        .fullOuterJoin("TBEstadoAnaliseREIDI", {
-          "TBAnaliseREIDI.IDEstadoAnaliseREIDI": "TBEstadoAnaliseREIDI.IDEstadoAnaliseREIDI",
-        })
+          // .fullOuterJoin("TBEstadoAnaliseREIDI", {
+          //   "TBAnaliseREIDI.IDEstadoAnaliseREIDI": "TBEstadoAnaliseREIDI.IDEstadoAnaliseREIDI",
+          // })
         .fullOuterJoin("TBManifestacaoANTAQ", {
           "TBControleREIDI.IDControleREIDI": "TBManifestacaoANTAQ.IDControleREIDI",
         })
-        .fullOuterJoin("TBEstadoManifestacaoANTAQ", {
-          "TBManifestacaoANTAQ.IDEstadoManifestacaoANTAQ": "TBEstadoManifestacaoANTAQ.IDEstadoManifestacaoANTAQ",
-        })
+        // .fullOuterJoin("TBEstadoManifestacaoANTAQ", {
+        //   "TBManifestacaoANTAQ.IDEstadoManifestacaoANTAQ": "TBEstadoManifestacaoANTAQ.IDEstadoManifestacaoANTAQ",
+        // })
         .first();
 
       // União das chamadas ao banco ArrendamentoV2 e ExtensãoControleGPO
@@ -38,6 +54,8 @@ module.exports = {
         ...results,
         ...await ContratoArrendamentoController.read(results.IDContratoArrendamento),
         ...await ContratoArrendamentoController.readCarga(results.IDContratoArrendamento),
+        ...await PortosController.listByContrato(results.IDContratoArrendamento),
+        ...await UsuarioController.readUsuario(results.IDUsuario),
       };
       
 
@@ -82,6 +100,7 @@ module.exports = {
         NRProtocoloMINFRA,
         NRCodigoMINFRA,
       });
+      
 
       res.status(201).json({
         IDContratoArrendamento,
@@ -105,16 +124,18 @@ module.exports = {
       const response = await extensaoControleDB("TBControleREIDI")
         .where({ NRProcessoPrincipal })
         .del("*");
-
+      
       res.status(200).json(response);
     } catch (error) {
       next(error);
     }
   },
+
   async update(req, res, next) {
     try {
       const { NRProcessoPrincipal } = req.params;
       const {
+        IDContratoArrendamento,
         DTProtocoloPedido,
         VLInvestimentoProposto,
         DSObservacoesSituacao,
@@ -125,6 +146,7 @@ module.exports = {
       await extensaoControleDB("TBControleREIDI")
         .where({ NRProcessoPrincipal })
         .update({
+          IDContratoArrendamento,
           DTProtocoloPedido,
           VLInvestimentoProposto,
           DSObservacoesSituacao,
@@ -133,11 +155,13 @@ module.exports = {
         });
 
       res.status(200).json({
+        IDContratoArrendamento,
         DTProtocoloPedido,
         VLInvestimentoProposto,
         DSObservacoesSituacao,
         NRProtocoloMINFRA,
         NRCodigoMINFRA,
+
       });
     } catch (error) {
       next(error);

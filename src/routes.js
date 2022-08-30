@@ -9,6 +9,7 @@ const ManifestacaoAntaqController = require("./controllers/ManifestacaoANTAQCont
 const EstadoManifestacaoAntaqController = require("./controllers/EstadoManifestacaoANTAQController");
 const { route } = require("express/lib/application");
 const ContratoArrendamentoController = require("./controllers/ContratoArrendamentoController");
+const UsuarioController = require("./controllers/UsuarioController");
 
 routes.get("/", (req, res) => {
   try {
@@ -46,12 +47,43 @@ routes.delete(
 
 // Analise REIDI
 routes.get("/api/analisereidi", AnaliseREIDIController.read);
+routes.post(
+  "/api/analisereidi/:NRProcessoPrincipal",
+  AnaliseREIDIController.create
+);
+routes.put(
+  "/api/analisereidi/:NRProcessoPrincipal",
+  AnaliseREIDIController.update
+);
+routes.delete(
+  "/api/analisereidi/:NRProcessoPrincipal",
+  AnaliseREIDIController.delete
+);
+
 routes.get(
   "/api/controlereidisemvinculo",
   ControleREIDISemVinculoController.read
 );
 routes.get("/api/estadoanalisereidi", EstadoAnaliseREIDIController.read);
+
+//Manifestacao ANTAQ
 routes.get("/api/manifestacaoantaq", ManifestacaoAntaqController.read);
+routes.post(
+  "/api/manifestacaoantaq/:NRProcessoPrincipal",
+  ManifestacaoAntaqController.create
+);
+routes.put(
+  "/api/manifestacaoantaq/:NRProcessoPrincipal",
+  ManifestacaoAntaqController.update
+);
+routes.delete(
+  "/api/manifestacaoantaq/:NRProcessoPrincipal",
+  ManifestacaoAntaqController.delete
+);
+
+//Usuario 
+routes.get("/api/usuario", UsuarioController.read);
+
 routes.get(
   "/api/estadomanifestacaoantaq",
   EstadoManifestacaoAntaqController.read
