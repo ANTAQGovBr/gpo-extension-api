@@ -1,11 +1,13 @@
 const { extensaoControleDB } = require("../database");
 
 module.exports = {
-  async read(req, res, next) {
+  async read(IDEstadoAnaliseREIDI, next) {
     try {
-      const results = await extensaoControleDB("TBEstadoAnaliseREIDI");
+      const results = await extensaoControleDB("TBEstadoAnaliseREIDI")
+      .where({IDEstadoAnaliseREIDI})
+      .first();
 
-      res.json(results);
-    } catch (error) {}
+      return results;
+    } catch (error) {next(error)}
   },
 };

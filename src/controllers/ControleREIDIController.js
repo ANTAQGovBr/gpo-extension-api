@@ -14,6 +14,18 @@ module.exports = {
     }
   },
 
+  async read(NRProcessoPrincipal, next) {
+    try {
+      const results = await extensaoControleDB("TBControleREIDI")
+        .where({
+          NRProcessoPrincipal,
+        })
+        .first();
+      return results;
+    } catch (error) {next(error)}
+  },
+
+  
   async getIDControleREIDI(NRProcessoPrincipal){
     try {
       const result = await extensaoControleDB("TBControleREIDI")
@@ -28,42 +40,6 @@ module.exports = {
     }
   },
 
-  async read(req, res, next) {
-    const { NRProcessoPrincipal } = req.params;
-    try {
-      const results = await extensaoControleDB("TBControleREIDI")
-        .where({
-          NRProcessoPrincipal,
-        })
-        .fullOuterJoin("TBAnaliseREIDI", {
-          "TBControleREIDI.IDControleREIDI": "TBAnaliseREIDI.IDControleREIDI",
-        })
-          // .fullOuterJoin("TBEstadoAnaliseREIDI", {
-          //   "TBAnaliseREIDI.IDEstadoAnaliseREIDI": "TBEstadoAnaliseREIDI.IDEstadoAnaliseREIDI",
-          // })
-        .fullOuterJoin("TBManifestacaoANTAQ", {
-          "TBControleREIDI.IDControleREIDI": "TBManifestacaoANTAQ.IDControleREIDI",
-        })
-        // .fullOuterJoin("TBEstadoManifestacaoANTAQ", {
-        //   "TBManifestacaoANTAQ.IDEstadoManifestacaoANTAQ": "TBEstadoManifestacaoANTAQ.IDEstadoManifestacaoANTAQ",
-        // })
-        .first();
-
-      // União das chamadas ao banco ArrendamentoV2 e ExtensãoControleGPO
-      const mergedResults = {
-        ...results,
-        ...await ContratoArrendamentoController.read(results.IDContratoArrendamento),
-        ...await ContratoArrendamentoController.readCarga(results.IDContratoArrendamento),
-        ...await PortosController.listByContrato(results.IDContratoArrendamento),
-        ...await UsuarioController.readUsuario(results.IDUsuario),
-      };
-      
-
-      res.json(mergedResults);
-    } catch (error) {
-      next(error);
-    }
-  },
 
   async matchRows(req, res, next) {
     try {

@@ -10,6 +10,7 @@ const EstadoManifestacaoAntaqController = require("./controllers/EstadoManifesta
 const { route } = require("express/lib/application");
 const ContratoArrendamentoController = require("./controllers/ContratoArrendamentoController");
 const UsuarioController = require("./controllers/UsuarioController");
+const ProcessController = require("./controllers/ProcessController");
 
 routes.get("/", (req, res) => {
   try {
@@ -19,6 +20,9 @@ routes.get("/", (req, res) => {
   }
 });
 
+
+// Processo
+routes.get("/api/processo/:NRProcessoPrincipal", ProcessController.read)
 // Portos
 routes.get("/api/portos", PortosController.read);
 

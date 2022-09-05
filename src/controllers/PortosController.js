@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  async listByContrato(IDContratoArrendamento) {
+  async PortoByContrato(IDContratoArrendamento) {
     try {
       const {CDTrigrama} = await getCDTrigrama(IDContratoArrendamento)
       const results = await outorgaDB

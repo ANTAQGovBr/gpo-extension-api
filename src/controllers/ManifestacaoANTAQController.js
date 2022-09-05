@@ -2,12 +2,14 @@ const { extensaoControleDB } = require("../database");
 const { getIDControleREIDI } = require("./ControleREIDIController");
 
 module.exports = {
-  async read(req, res, next) {
+  async read(IDControleREIDI, next) {
     try {
-      const results = await extensaoControleDB("TBManifestacaoANTAQ");
+      const results = await extensaoControleDB("TBManifestacaoANTAQ")
+      .where({IDControleREIDI})
+      .first();
 
-      res.json(results);
-    } catch (error) {}
+      return results;
+    } catch (error) {next(error)}
   },
 
   async create(req, res, next) {
